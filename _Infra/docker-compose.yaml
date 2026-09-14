@@ -1,4 +1,3 @@
-version: "3.0"
 services:
   # https://hub.docker.com/_/postgres
 
