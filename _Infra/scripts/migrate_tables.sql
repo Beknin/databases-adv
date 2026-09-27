@@ -49,7 +49,7 @@ insert into units(unit_id, base_unit_id, unit_name, unit_ratio) values (5, 5, '�
 insert into units(unit_id, base_unit_id, unit_name, unit_ratio) values (11, 1, 'см', 0.01);
 insert into units(unit_id, base_unit_id, unit_name, unit_ratio) values (13, 3, 'Паскали', 1);
 insert into units(unit_id, base_unit_id, unit_name, unit_ratio) values (14, 4, 'Радианы', 57.296);
-insert into units(unit_id, base_unit_id, unit_name, unit_ratio) values (15, 5, 'км/ч', 3.6);
+insert into units(unit_id, base_unit_id, unit_name, unit_ratio) values (15, 5, 'км/ч', 0.277);
 
 insert into parameter_types(parameter_type_id, parameter_type_name, base_unit_id) values (1, 'Высота', 1);
 insert into parameter_types(parameter_type_id, parameter_type_name, base_unit_id) values (2, 'Температура', 2);
