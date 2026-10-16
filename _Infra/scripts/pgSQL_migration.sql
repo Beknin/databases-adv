@@ -36,6 +36,7 @@ begin
 		alter table parameters alter column wind_dir drop not null;
 		alter table parameters alter column wind_spd drop not null;
 
+	commit;
 	end;
 -- Создание счетчиков и их привязка к таблицам
 	begin
@@ -55,6 +56,8 @@ begin
 		create sequence if not exists seq_virtual_temp start with 1;
 		alter table virtual_temp_correction alter column correction_id set default nextval('seq_virtual_temp');
 		alter sequence seq_virtual_temp owned by virtual_temp_correction.correction_id;
+		
+	commit;
 	end;
 -- Наполнение данными (
 	begin
@@ -120,6 +123,7 @@ begin
 		(111, 1, 1, 1, 1310.0), (112, 1, 2, 2, 15.5), (113, 1, 3, 3, 99323.4), (114, 1, 4, 4, 350.0), (115, 1, 5, 15, 6.11)
 		on conflict (parameter_id) do nothing;
 
+	commit;
 	end;
 -- =========================================================
 -- 4. Очистка старых колонок, добавление связей (FK) и ограничений (CHECK)
@@ -150,5 +154,6 @@ begin
 		alter table parameters add constraint chk_wind_direction_range check ((parameter_type_id != 4) or (parameter_value between 0 and 360));
 		alter table parameters add constraint chk_wind_speed_range check ((parameter_type_id != 5) or (parameter_value between 0 and 150));
 
+	commit;
 	end;
 end $$;
