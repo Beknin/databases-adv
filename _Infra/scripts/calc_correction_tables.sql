@@ -8,6 +8,9 @@ begin
     );
     create sequence if not exists calc_correction_height_seq;
     alter table calc_correction_heights alter column id set default nextval('calc_correction_height_seq');
+	comment on table calc_correction_heights is 'Таблица стандартных высот бюллетеня';
+    comment on column calc_correction_heights.id is 'Уникальный код';
+    comment on column calc_correction_heights.height is 'Высота, м';
 
     -- таблица для хранения заголовков
     create table if not exists calc_correction_headers (
@@ -18,7 +21,12 @@ begin
     );
     create sequence if not exists calc_correction_headers_seq;
     alter table calc_correction_headers alter column id set default nextval('calc_correction_headers_seq');
-
+	comment on table calc_correction_headers is 'Справочник заголовков таблиц корректировок';
+    comment on column calc_correction_headers.id is 'Уникальный код';
+    comment on column calc_correction_headers.type_id is 'Код типа таблицы';
+    comment on column calc_correction_headers.header_value is 'Значение в заголовке таблицы';
+    comment on column calc_correction_headers.position is 'Позиция значения в заголовке';
+	
     -- справочник типов таблиц корректировок
     create table if not exists calc_correction_types (
         id integer primary key,
@@ -29,6 +37,12 @@ begin
     );
     create sequence if not exists calc_correction_types_seq;
     alter table calc_correction_types alter column id set default nextval('calc_correction_types_seq');
+	comment on table calc_correction_types is 'Справочник типов таблиц';
+    comment on column calc_correction_types.id is 'Уникальный код';
+    comment on column calc_correction_types.parent_id is 'Уникальный код владельца - тип таблицы';
+    comment on column calc_correction_types.measurement_equipment_id is 'Тип оборудования (1=ДМК, 2=ВР)';
+    comment on column calc_correction_types.description is 'Описание к таблице';
+    comment on column calc_correction_types.header_values is 'Значения в заголовке таблицы';
 
     -- универсальная таблица корректировок
     create table if not exists calc_correction (
@@ -39,7 +53,12 @@ begin
     );
     create sequence if not exists calc_correction_seq;
     alter table calc_correction alter column id set default nextval('calc_correction_seq');
-
+	comment on table calc_correction is 'Универсальная таблица корректировок';
+    comment on column calc_correction.id is 'Уникальный код';
+    comment on column calc_correction.height_id is 'Код высоты';
+    comment on column calc_correction.type_id is 'Код типа таблиц';
+    comment on column calc_correction.row_values is 'Значения с корректировками';
+	
     -- настройка внешних ключей
     alter table calc_correction_headers drop constraint if exists fk_calc_headers_type;
     alter table calc_correction_headers add constraint fk_calc_headers_type foreign key (type_id) references calc_correction_types(id);
