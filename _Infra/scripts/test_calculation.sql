@@ -1,48 +1,41 @@
-SELECT 
-    'Тест 1: ДМК, t0=25°C, V0=6 м/с' AS "Тест",
-    'ДМК' AS "Оборудование",
-    25::numeric AS "t0, °C",
-    6::numeric AS "Вход (V0/Дг)",
-    height AS "Высота, м",
-    temp_deviation AS "ΔtY",
-    wind_speed AS "Wy, м/с",
-    wind_dir_delta AS "ΔαWY"
-FROM calculate_meteo_approximation(
-    ('ДМК', 100, 25, 765, 15, 6, null)::parameter_pack, 
-    'ДМК'
-)
+select 
+    'тест 1: дмк, t0=25°c, v0=6 м/с' as "тест",
+    'дмк' as "оборудование",
+    25::numeric as "t0, °c",
+    6::numeric as "вход (v0/дг)",
+    height as "высота, м",
+    temp_deviation as "δty",
+    wind_speed as "wy, м/с",
+    wind_dir as "αwy"
+from calculate_meteo_approximation(
+    ('дмк', 100, 25, 765, 15, 6, null)::parameter_pack, 1)
 
-UNION ALL
+union all
 
-SELECT 
-    'Тест 2: ВР, t0=16.8°C, Дг=2.1 м' AS "Тест",
-    'ВР' AS "Оборудование",
-    16.8::numeric AS "t0, °C",
-    2.1::numeric AS "Вход (V0/Дг)",
-    height AS "Высота, м",
-    temp_deviation AS "ΔtY",
-    wind_speed AS "Wy, м/с",
-    wind_dir_delta AS "ΔαWY"
-FROM calculate_meteo_approximation(
-    ('ВР', 102, 16.8, 745, 0, null, 2.1)::parameter_pack, 
-    'ВР'
-)
+select 
+    'тест 2: вр, t0=16.8°c, дг=2.1 м' as "тест",
+    'вр' as "оборудование",
+    16.8::numeric as "t0, °c",
+    2.1::numeric as "вход (v0/дг)",
+    height as "высота, м",
+    temp_deviation as "δty",
+    wind_speed as "wy, м/с",
+    wind_dir as "αwy"
+from calculate_meteo_approximation(
+    ('вр', 102, 16.8, 745, 0, null, 2.1)::parameter_pack, 2)
 
-UNION ALL
+union all
 
-SELECT 
-    'Тест 3: ДМК, t0=-10°C, V0=8 м/с' AS "Тест",
-    'ДМК' AS "Оборудование",
-    -10::numeric AS "t0, °C",
-    8::numeric AS "Вход (V0/Дг)",
-    height AS "Высота, м",
-    temp_deviation AS "ΔtY",
-    wind_speed AS "Wy, м/с",
-    wind_dir_delta AS "ΔαWY"
-FROM calculate_meteo_approximation(
-    ('ДМК', 150, -10, 755, 25, 8, null)::parameter_pack, 
-    'ДМК'
-)
+select 
+    'тест 3: дмк, t0=-10°c, v0=8 м/с' as "тест",
+    'дмк' as "оборудование",
+    -10::numeric as "t0, °c",
+    8::numeric as "вход (v0/дг)",
+    height as "высота, м",
+    temp_deviation as "δty",
+    wind_speed as "wy, м/с",
+    wind_dir as "αwy"
+from calculate_meteo_approximation(
+    ('дмк', 150, -10, 755, 25, 8, null)::parameter_pack, 1)
 
--- Сортировка итогового результата
-ORDER BY "Тест", "Высота, м";
+order by "тест", "высота, м";
