@@ -1,3 +1,5 @@
+use Front;
+
 -- product.SizeID -> size.ID
 SELECT 
     COUNT(*) AS Всего_записей,
@@ -96,3 +98,12 @@ SELECT
 FROM bm_StorageOperations_Table sot
 LEFT JOIN bm_ReasonDebit rd ON sot.ReasonID = rd.ID
 WHERE sot.ReasonID IS NOT NULL AND sot.ReasonID > 0;
+
+-- bm_JournalSessions.PersonID -> personnel.personid
+SELECT 
+    COUNT(*) AS Всего_записей,
+    COUNT(p.personid) AS Совпадений,
+    CAST(COUNT(p.personid) * 100.0 / COUNT(*) AS DECIMAL(5,2)) AS Процент_совпадений
+FROM bm_JournalSessions js
+LEFT JOIN personnel p ON js.PersonID = p.personid
+WHERE js.PersonID IS NOT NULL AND js.PersonID > 0;
